@@ -1,6 +1,6 @@
 {
   "name": "nval",
-  "version": "1.0.39",
+  "version": "1.1.0",
   "description": "jQuery validation-like vanilla js plugin",
   "scripts": {
     "build:esm": "node ./node_modules/typescript/bin/tsc --project ./tsconfig.json --module es2015 --outDir ./dist/esm -d && node ./process-dts.js",

@@ -5,11 +5,28 @@ import { IRuleSearchItem } from "./IRuleSearchItem";
 
 export const ruleSearchList: IRuleSearchItem[] = [
     {
-        fieldTypes: [FieldType.Text, FieldType.Password, FieldType.Textarea, FieldType.Select, FieldType.Number, FieldType.Email],
+        fieldTypes: [FieldType.Text, FieldType.Password, FieldType.Textarea, FieldType.Number, FieldType.Email],
         instance: {
             name: "required",
             apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
                 var val = tryGetValue(elements[0]);
+                if (isNullOrEmpty(val))
+                    return ValidationResult.createError(elements, errorMessage);
+                val = val.trim();
+                var isValid = val !== "";
+                return isValid ? ValidationResult.createOk(elements) :
+                    ValidationResult.createError(elements, errorMessage);
+            }
+        }
+    },
+    {
+        fieldTypes: [FieldType.Select],
+        instance: {
+            name: "required",
+            apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
+                var element = elements[0] as any;
+                var selectedOption = (Array as any).from(element.options).filter(x => x.selected)[0];
+                var val = selectedOption.getAttribute("value");
                 if (isNullOrEmpty(val))
                     return ValidationResult.createError(elements, errorMessage);
                 val = val.trim();

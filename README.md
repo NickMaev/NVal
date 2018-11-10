@@ -6,6 +6,10 @@ NVal is a vanilla js validator which helps to migrate from jQuery Validation plu
 It parses html attributes and assign rules and messages to the elements. It also has simple API.
 See also [NVal-Tippy](https://github.com/NickMaev/NVal-Tippy) plugin for use NVal with awesome validation tooltips!
 
+# Changes
+##### v. 1.1.0 (2018-11-10)
+* Fixed `select` element validation rule.
+
 # Usage
 
 ## Install
