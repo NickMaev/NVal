@@ -5,11 +5,28 @@ var Util_1 = require("./Util");
 var ValidationResult_1 = require("./ValidationResult");
 exports.ruleSearchList = [
     {
-        fieldTypes: [FieldType_1.FieldType.Text, FieldType_1.FieldType.Password, FieldType_1.FieldType.Textarea, FieldType_1.FieldType.Select, FieldType_1.FieldType.Number, FieldType_1.FieldType.Email],
+        fieldTypes: [FieldType_1.FieldType.Text, FieldType_1.FieldType.Password, FieldType_1.FieldType.Textarea, FieldType_1.FieldType.Number, FieldType_1.FieldType.Email],
         instance: {
             name: "required",
             apply: function (elements, errorMessage) {
                 var val = Util_1.tryGetValue(elements[0]);
+                if (Util_1.isNullOrEmpty(val))
+                    return ValidationResult_1.ValidationResult.createError(elements, errorMessage);
+                val = val.trim();
+                var isValid = val !== "";
+                return isValid ? ValidationResult_1.ValidationResult.createOk(elements) :
+                    ValidationResult_1.ValidationResult.createError(elements, errorMessage);
+            }
+        }
+    },
+    {
+        fieldTypes: [FieldType_1.FieldType.Select],
+        instance: {
+            name: "required",
+            apply: function (elements, errorMessage) {
+                var element = elements[0];
+                var selectedOption = Array.from(element.options).filter(function (x) { return x.selected; })[0];
+                var val = selectedOption.getAttribute("value");
                 if (Util_1.isNullOrEmpty(val))
                     return ValidationResult_1.ValidationResult.createError(elements, errorMessage);
                 val = val.trim();

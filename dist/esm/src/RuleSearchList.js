@@ -3,11 +3,28 @@ import { tryGetValue, getNumberFromAttrOrDefault, isNullOrEmpty } from "./Util";
 import { ValidationResult } from "./ValidationResult";
 export var ruleSearchList = [
     {
-        fieldTypes: [FieldType.Text, FieldType.Password, FieldType.Textarea, FieldType.Select, FieldType.Number, FieldType.Email],
+        fieldTypes: [FieldType.Text, FieldType.Password, FieldType.Textarea, FieldType.Number, FieldType.Email],
         instance: {
             name: "required",
             apply: function (elements, errorMessage) {
                 var val = tryGetValue(elements[0]);
+                if (isNullOrEmpty(val))
+                    return ValidationResult.createError(elements, errorMessage);
+                val = val.trim();
+                var isValid = val !== "";
+                return isValid ? ValidationResult.createOk(elements) :
+                    ValidationResult.createError(elements, errorMessage);
+            }
+        }
+    },
+    {
+        fieldTypes: [FieldType.Select],
+        instance: {
+            name: "required",
+            apply: function (elements, errorMessage) {
+                var element = elements[0];
+                var selectedOption = Array.from(element.options).filter(function (x) { return x.selected; })[0];
+                var val = selectedOption.getAttribute("value");
                 if (isNullOrEmpty(val))
                     return ValidationResult.createError(elements, errorMessage);
                 val = val.trim();
