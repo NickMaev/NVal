@@ -25,8 +25,11 @@ export const ruleSearchList: IRuleSearchItem[] = [
             name: "required",
             apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
                 var element = elements[0] as any;
+                var val = null;
                 var selectedOption = (Array as any).from(element.options).filter(x => x.selected)[0];
-                var val = selectedOption.getAttribute("value");
+                if (selectedOption) {
+                    val = selectedOption.getAttribute("value");
+                }
                 if (isNullOrEmpty(val))
                     return ValidationResult.createError(elements, errorMessage);
                 val = val.trim();

@@ -23,8 +23,11 @@ export var ruleSearchList = [
             name: "required",
             apply: function (elements, errorMessage) {
                 var element = elements[0];
+                var val = null;
                 var selectedOption = Array.from(element.options).filter(function (x) { return x.selected; })[0];
-                var val = selectedOption.getAttribute("value");
+                if (selectedOption) {
+                    val = selectedOption.getAttribute("value");
+                }
                 if (isNullOrEmpty(val))
                     return ValidationResult.createError(elements, errorMessage);
                 val = val.trim();
