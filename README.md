@@ -7,6 +7,8 @@ It parses html attributes and assign rules and messages to the elements. It also
 See also [NVal-Tippy](https://github.com/NickMaev/NVal-Tippy) plugin for use NVal with awesome validation tooltips!
 
 # Changes
+##### v. 1.1.3 (2018-12-20)
+* Fixed working of activity flag in HTML attributes. Now `data-val-[rule]="[true|false]"` works properly.
 ##### v. 1.1.2 (2018-11-10)
 * Fixed `select` element validation rule.
 

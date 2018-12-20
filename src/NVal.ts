@@ -178,8 +178,9 @@ export class NVal {
                         continue;
                     }
 
+                    var isActive = dataSet[key].toLowerCase() == "true";
                     var assignedRule: IAssignedRule = {
-                        isActive: true,
+                        isActive: isActive,
                         instance: ruleSearchItem.instance,
                         errorMessage: ""
                     };
@@ -227,7 +228,7 @@ export class NVal {
 
                 return [document.getElementById(errorPlacementTag)];
             }
-            return nodeListToArray(document.getElementsByTagName(errorPlacementTag));
+            return nodeListToArray(document.getElementsByTagName(errorPlacementTag) as any);
         }
 
         return [];

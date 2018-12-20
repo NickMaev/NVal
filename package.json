@@ -7,7 +7,8 @@
     "build:cjs": "node ./node_modules/typescript/bin/tsc --project ./tsconfig.json --module commonjs --outDir ./dist/cjs",
     "build": "npm run clean && npm run build:browser && npm run build:esm && npm run build:cjs",
     "build:browser": "node ./node_modules/webpack/bin/webpack.js --config ./webpack.config.js --mode production",
-    "clean": "node ./node_modules/rimraf ./dist"
+    "clean": "node ./node_modules/rimraf ./dist",
+    "watch": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.config.js --mode development"
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -15,6 +16,7 @@
   "umd": "./dist/browser/nval.min.js",
   "umd_name": "NVal",
   "devDependencies": {
+    "webpack-dev-server": "3.1.10",
     "rimraf": "^2.6.2",
     "uglify-js": "^3.4.7",
     "babel-core": "^6.26.0",

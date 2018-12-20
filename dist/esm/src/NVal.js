@@ -132,8 +132,9 @@ var NVal = (function () {
                     if (ruleSearchItem == null) {
                         continue;
                     }
+                    var isActive = dataSet[key].toLowerCase() == "true";
                     var assignedRule = {
-                        isActive: true,
+                        isActive: isActive,
                         instance: ruleSearchItem.instance,
                         errorMessage: ""
                     };
