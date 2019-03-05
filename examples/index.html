@@ -18,37 +18,42 @@
 </head>
 <body>
 
-<form id="form" class="form" style="padding: 10px;">
-    <div class="form-group">
-        <label class="form-label" for="firstName">First name</label>
-        <input class="form-control" type="text" name="firstName" id="firstName" data-val-required="true" data-msg-required="First name is required." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-val-maxlength="10" data-msg-maxlength="Maximal length is {0}." data-error="#firstNameError"/>
-		<div id="firstNameError"></div>
-	</div>
-    <div class="form-group">
-        <label class="form-label" for="lastName">Last name</label>
-        <input class="form-control" type="text" name="lastName" id="lastName" data-val-required="true" data-msg-required="Please, type your last name." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-error="#lastNameError" />
-		<div id="lastNameError"></div>
-    </div>
-    <div class="form-group">
-        <label class="form-label" for="email">Email</label>
-        <input class="form-control" type="email" name="email" id="email" data-val-required="true" data-msg-required="Email required." data-msg-email="Email address is not valid." data-error="#emailError" />
-		<div id="emailError"></div>
-    </div>
-    <div class="form-group">
-        <label class="form-label" for="age">Age</label>
-        <input class="form-control" type="number" name="age" id="age" data-val-required="true" data-msg-required="How old are you?" data-val-range="true" min="15" max="120" data-msg-range="From {0} till {1}." data-error="#ageError" />
-		<div id="ageError"></div>
-	</div>
-    <div class="form-group">
-        <label class="form-label">Gender</label><br>
-        <label class="form-label" for="genderMale">Male</label>
-        <input type="radio" name="gender" id="genderMale" data-val-required="true" data-msg-required="Please, choose your gender. :)" value="1" data-error="#genderError" />
-        <label class="form-label" for="genderFemale">Female</label>
-        <input type="radio" name="gender" id="genderFemale" value="2">
-		<div id="genderError"></div>
-    </div>
-    <button class="btn btn-success" id="submitBtn">Check</button>
-</form>
+    <form id="form" class="form" style="padding: 10px;">
+        <div class="form-group">
+            <label class="form-label" for="firstName">First name</label>
+            <input class="form-control" type="text" name="firstName" id="firstName" data-val-required="true" data-msg-required="First name is required." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-val-maxlength="10" data-msg-maxlength="Maximal length is {0}." data-error="#firstNameError" />
+            <div id="firstNameError"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="lastName">Last name</label>
+            <input class="form-control" type="text" name="lastName" id="lastName" data-val-required="true" data-msg-required="Please, type your last name." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-error="#lastNameError" />
+            <div id="lastNameError"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="middleName">Middle name</label>
+            <input class="form-control" type="text" name="middleName" id="middleName" data-val-maxlength="20" data-msg-maxlength="Maximal length is {0}." data-error="#middleNameError" />
+            <div id="middleNameError"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" name="email" id="email" data-val-required="true" data-msg-required="Email required." data-msg-email="Email address is not valid." data-error="#emailError" />
+            <div id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="age">Age</label>
+            <input class="form-control" type="number" name="age" id="age" data-val-required="true" data-msg-required="How old are you?" data-val-range="true" min="15" max="120" data-msg-range="From {0} till {1}." data-error="#ageError" />
+            <div id="ageError"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Gender</label><br>
+            <label class="form-label" for="genderMale">Male</label>
+            <input type="radio" name="gender" id="genderMale" data-val-required="true" data-msg-required="Please, choose your gender. :)" value="1" data-error="#genderError" />
+            <label class="form-label" for="genderFemale">Female</label>
+            <input type="radio" name="gender" id="genderFemale" value="2">
+            <div id="genderError"></div>
+        </div>
+        <button class="btn btn-success" id="submitBtn">Check</button>
+    </form>
 <script>
     init();
 </script>

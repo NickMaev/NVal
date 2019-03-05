@@ -162,6 +162,7 @@ export class NVal {
 
         var dataSet = { ...htmlElement.dataset };
 
+        // Set element type rule.
         dataSet[`val${htmlElement.getAttribute("type")}`] = "true";
 
         for (var key in dataSet) {
@@ -169,25 +170,57 @@ export class NVal {
             // Grab the rules here.
 
             if (dataSet.hasOwnProperty(key)) {
-                if (key.indexOf("val") === 0) {
 
-                    var ruleName = key.replace("val", "").toLowerCase();
-                    var ruleSearchItem = self.ruleSearchList.filter(x => x.instance.name === ruleName && x.fieldTypes.indexOf(fieldType) > -1)[0];
+                if (key.indexOf("val") !== 0) {
+                    // If it's not validation attribute, skip it.
+                    continue;
+                }
 
-                    if (ruleSearchItem == null) {
-                        continue;
+                var ruleKey = key.replace("val", "");
+
+                var ruleName = ruleKey.toLowerCase();
+                if (ruleName === "") {
+                    continue;
+                }
+
+                var ruleSearchItem = self.ruleSearchList.filter(x => x.instance.name === ruleName && x.fieldTypes.indexOf(fieldType) > -1)[0];
+                if (ruleSearchItem == null) {
+                    continue;
+                }
+
+                var isActive = false;
+
+                // "valValue" may contain activity flag or value for the rule.
+                var valValue = dataSet[key].toLowerCase();
+
+                var toggleFlag = dataSet[`valToggle${ruleKey}`];
+
+                var isValValueFlag = (valValue == "true" || valValue == "false");
+                if (isValValueFlag) {
+                    isActive = valValue == "true";
+                } else {
+
+                    // Use the "toggleFlag".
+
+                    if (toggleFlag == null) {
+                        // If toggle flag is null, make rule active.
+                        isActive = true;
                     }
+                }
 
-                    var isActive = dataSet[key].toLowerCase() == "true";
-                    var assignedRule: IAssignedRule = {
-                        isActive: isActive,
-                        instance: ruleSearchItem.instance,
-                        errorMessage: ""
-                    };
+                if (toggleFlag != null) {
+                    toggleFlag = toggleFlag.toLowerCase();
+                    isActive = toggleFlag == "true";
+                }
 
-                    if (assignedRules != null) {
-                        assignedRules.push(assignedRule);
-                    }
+                var assignedRule: IAssignedRule = {
+                    isActive: isActive,
+                    instance: ruleSearchItem.instance,
+                    errorMessage: ""
+                };
+
+                if (assignedRules != null) {
+                    assignedRules.push(assignedRule);
                 }
             }
         }

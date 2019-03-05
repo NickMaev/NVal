@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,13 +34,18 @@
     <form id="form" class="form" style="padding: 10px;">
         <div class="form-group">
             <label class="form-label" for="firstName">First name</label>
-            <input class="form-control" type="text" name="firstName" id="firstName" data-val-required="true" data-msg-required="First name is required." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-val-maxlength="10" data-msg-maxlength="Maximal length is {0}." data-error="#firstNameError" />
+            <input class="form-control" type="text" name="firstName" id="firstName" data-val-required="true" data-val-toggle-required="false" data-msg-required="First name is required." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-val-maxlength="10" data-msg-maxlength="Maximal length is {0}." data-error="#firstNameError" />
             <div id="firstNameError"></div>
         </div>
         <div class="form-group">
             <label class="form-label" for="lastName">Last name</label>
             <input class="form-control" type="text" name="lastName" id="lastName" data-val-required="false" data-msg-required="Please, type your last name." data-val-minlength="2" data-msg-minlength="Minimal length is {0}." data-error="#lastNameError" />
             <div id="lastNameError"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="middleName">Middle name</label>
+            <input class="form-control" type="text" name="middleName" id="middleName" data-val-maxlength="20" data-msg-maxlength="Maximal length is {0}." data-error="#middleNameError" />
+            <div id="middleNameError"></div>
         </div>
         <div class="form-group">
             <label class="form-label" for="email">Email</label>

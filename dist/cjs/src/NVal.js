@@ -128,21 +128,42 @@ var NVal = (function () {
         dataSet["val" + htmlElement.getAttribute("type")] = "true";
         for (var key in dataSet) {
             if (dataSet.hasOwnProperty(key)) {
-                if (key.indexOf("val") === 0) {
-                    var ruleName = key.replace("val", "").toLowerCase();
-                    var ruleSearchItem = self.ruleSearchList.filter(function (x) { return x.instance.name === ruleName && x.fieldTypes.indexOf(fieldType) > -1; })[0];
-                    if (ruleSearchItem == null) {
-                        continue;
+                if (key.indexOf("val") !== 0) {
+                    continue;
+                }
+                var ruleKey = key.replace("val", "");
+                var ruleName = ruleKey.toLowerCase();
+                if (ruleName === "") {
+                    continue;
+                }
+                var ruleSearchItem = self.ruleSearchList.filter(function (x) { return x.instance.name === ruleName && x.fieldTypes.indexOf(fieldType) > -1; })[0];
+                if (ruleSearchItem == null) {
+                    continue;
+                }
+                var isActive = false;
+                var valValue = dataSet[key].toLowerCase();
+                var toggleFlag = dataSet["valToggle" + ruleKey];
+                var isValValueFlag = (valValue == "true" || valValue == "false");
+                if (isValValueFlag) {
+                    isActive = valValue == "true";
+                }
+                else {
+                    console.log(toggleFlag == null);
+                    if (toggleFlag == null) {
+                        isActive = true;
                     }
-                    var isActive = dataSet[key].toLowerCase() == "true";
-                    var assignedRule = {
-                        isActive: isActive,
-                        instance: ruleSearchItem.instance,
-                        errorMessage: ""
-                    };
-                    if (assignedRules != null) {
-                        assignedRules.push(assignedRule);
-                    }
+                }
+                if (toggleFlag != null) {
+                    toggleFlag = toggleFlag.toLowerCase();
+                    isActive = toggleFlag == "true";
+                }
+                var assignedRule = {
+                    isActive: isActive,
+                    instance: ruleSearchItem.instance,
+                    errorMessage: ""
+                };
+                if (assignedRules != null) {
+                    assignedRules.push(assignedRule);
                 }
             }
         }

@@ -7,6 +7,10 @@ It parses html attributes and assign rules and messages to the elements. It also
 See also [NVal-Tippy](https://github.com/NickMaev/NVal-Tippy) plugin for use NVal with awesome validation tooltips!
 
 # Changes
+##### v. 1.1.4 (2019-03-05)
+* Fixed issue with rule activation by assign rule attribute.
+* Added toggle rule attribute.
+* Updated dependecies.
 ##### v. 1.1.3 (2018-12-20)
 * Fixed working of activity flag in HTML attributes. Now `data-val-[rule]="[true|false]"` works properly.
 ##### v. 1.1.2 (2018-11-10)
@@ -44,9 +48,10 @@ nval.isValid() // Returns boolean.
 ## Common attributes
 Attribute | Action
 --- | ---
-`data-val-[rule]="true"` | Assign rule to the element (input/textarea/etc.).
-`data-msg-[rule]="[message]"` | Define message for the rule.
+`data-val-[ruleName]="true"` | Assign rule to the element (input/textarea/etc.).
+`data-msg-[ruleName]="[message]"` | Define message for the rule.
 `data-error="#[elementId]"` | Define error placement container.
+`data-val-toggle-[ruleName]="[true | false]"` | Turn on or off the rule.
 
 ## Rule attributes
 Attribute | Action
@@ -75,36 +80,36 @@ Note, that in examples below `nval` is instance.
 ### Add custom global rules
 ```typescript
 nval.addRules([
-            {
-                fieldTypes: [array of the 'FieldTypes'], // Type of the elements.
-                instance: {
-                    name: [rule name], // Rule name.
-                    apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
-                        // Your validation code here.
-                    }
-                }
+    {
+        fieldTypes: [array of the 'FieldTypes'], // Type of the elements.
+        instance: {
+            name: [rule name], // Rule name.
+            apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
+                // Your validation code here.
             }
-        ]);
+        }
+    }
+]);
 ```
 Example:
 ```typescript
 nval.addRules([
-            {
-                fieldTypes: [FieldType.Text], // Type of the elements.
-                instance: {
-                    name: "agreed", // Rule name.
-                    apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
-                        var element = elements[0] as HTMLInputElement;
-                        var val = element.value;
-                        if (val == null || val === "")
-                            return ValidationResult.createOk(elements);
-                        if (val.toLowerCase() === "agreed")
-                            return ValidationResult.createOk(elements);
-                        return ValidationResult.createError(elements, errorMessage);
-                    }
-                }
+    {
+        fieldTypes: [FieldType.Text], // Type of the elements.
+        instance: {
+            name: "agreed", // Rule name.
+            apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
+                var element = elements[0] as HTMLInputElement;
+                var val = element.value;
+                if (val == null || val === "")
+                    return ValidationResult.createOk(elements);
+                if (val.toLowerCase() === "agreed")
+                    return ValidationResult.createOk(elements);
+                return ValidationResult.createError(elements, errorMessage);
             }
-        ]);
+        }
+    }
+]);
 ```
 
 Then added rule will be assigned to the elements which will have HTML attribute:
@@ -116,40 +121,42 @@ Note, that for different `fieldTypes` there are can be different rules. So, for 
 ### Assign custom rules to element
 ```typescript
 nval.assignRules([html element],
-            [
-                {
-                    instance: {
-                        name: [rule name],
-                        apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
-                            // Your code here...
-                        }
-                    },
-                    errorMessage: [error message],
-                    isActive: [true | false]
+    [
+        {
+            instance: {
+                name: [rule name],
+                apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
+                    // Your code here...
                 }
-            ]);
+            },
+            errorMessage: [error message],
+            isActive: [true | false]
+        }
+    ]
+);
 ```
 Example:
 ```typescript
 nval.assignRules(middleNameElement,
-            [
-                {
-                    instance: {
-                        name: "middlenamecheck", // Rule name.
-                        apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
-                            var element = elements[0] as HTMLInputElement;
-                            var val = element.value;
-                            if (val == null || val === "")
-                                return ValidationResult.createOk(elements);
-                            if (val[0] === val[0].toLowerCase()) // Check for the first letter that must be capitalized.
-                                return ValidationResult.createError(elements, errorMessage);
-                            return ValidationResult.createOk(elements);
-                        }
-                    },
-                    errorMessage: "Middle name must have first capital letter.", // Error message.
-                    isActive: true
+    [
+        {
+            instance: {
+                name: "middlenamecheck", // Rule name.
+                apply(elements: HTMLElement[], errorMessage: string): ValidationResult {
+                    var element = elements[0] as HTMLInputElement;
+                    var val = element.value;
+                    if (val == null || val === "")
+                        return ValidationResult.createOk(elements);
+                    if (val[0] === val[0].toLowerCase()) // Check for the first letter that must be capitalized.
+                        return ValidationResult.createError(elements, errorMessage);
+                    return ValidationResult.createOk(elements);
                 }
-            ]);
+            },
+            errorMessage: "Middle name must have first capital letter.", // Error message.
+            isActive: true
+        }
+    ]
+);
 ```
 
 ### Assign existing rule to the element

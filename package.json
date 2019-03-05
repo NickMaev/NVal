@@ -1,6 +1,6 @@
 {
   "name": "nval",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "jQuery validation-like vanilla js plugin",
   "scripts": {
     "build:esm": "node ./node_modules/typescript/bin/tsc --project ./tsconfig.json --module es2015 --outDir ./dist/esm -d && node ./process-dts.js",
@@ -16,23 +16,16 @@
   "umd": "./dist/browser/nval.min.js",
   "umd_name": "NVal",
   "devDependencies": {
-    "webpack-dev-server": "3.1.10",
-    "rimraf": "^2.6.2",
+    "@babel/core": "7.3.3",
+    "webpack-dev-server": "3.2.1",
+    "rimraf": "2.6.3",
     "uglify-js": "^3.4.7",
-    "babel-core": "^6.26.0",
-    "babel-jest": "^22.4.1",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-object-assign": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babel-plugin-add-module-exports": "0.3.3",
-    "babel-loader": "^7.1.5",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "ts-loader": "^4.4.2",
-    "typescript": "^3.0.1"
+    "babel-plugin-add-module-exports": "1.0.0",
+    "babel-loader": "8.0.5",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.2.3",
+    "ts-loader": "5.3.3",
+    "typescript": "3.3.3333"
   },
   "repository": {
     "type": "git",
