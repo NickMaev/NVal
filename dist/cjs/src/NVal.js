@@ -148,7 +148,6 @@ var NVal = (function () {
                     isActive = valValue == "true";
                 }
                 else {
-                    console.log(toggleFlag == null);
                     if (toggleFlag == null) {
                         isActive = true;
                     }
